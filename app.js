@@ -10,7 +10,7 @@ let initalizationdbserver = async () => {
   try {
     db = await open({
       filename: pathfile,
-      server: sqlite3.Database,
+      driver: sqlite3.Database,
     });
     app.listen(3000, () => {
       console.log("Server Running at http://localhost:3000/");
