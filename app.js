@@ -36,4 +36,14 @@ app.get("/movies/", async (request, response) => {
   let arrayresult = await db.all(getquery);
   response.send(finalresultfirst(arrayresult));
 });
+app.post("/movies/", async (request, response) => {
+  let moviedetails = request.body;
+  let { directorId, movieName, leaderActor } = moviedetails;
+  let postmovie = `
+  INSERT INTO
+  movie(director_id,movie_name,lead_actor)
+  VALUES (${directorId}, `${movieName}`,`${leaderActor}`);`;
+  let excute = await db.run(postmovie);
+  response.send("Movie Successfully Added");
+});
 
