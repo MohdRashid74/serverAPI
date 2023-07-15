@@ -56,3 +56,46 @@ app.get("/movies/:movieId/", async (request, response) => {
   let final = await db.get(getqueryunique);
   response.send(final);
 });
+app.put("/movies/:movieId/", async (request, response) => {
+  let { directorId, movieName, leadActor } = request.body;
+  let { movieId } = request.params;
+  let updatemoviedetails = `
+     UPDATE 
+     movie
+     SET 
+     director_id=${directorId},
+     movie_name="${movieName}",
+     lead_actor="${leadActor}"`;
+  let result_2 = await db.run(updatemoviedetails);
+  response.send("Movie Detail Updated");
+});
+//API 5
+app.delete("/movies/:movieId/", async (request, response) => {
+  let { movieId } = request.params;
+  let result_3 = `
+    DELETE FROM 
+    movie
+    WHERE movie_id=${movieId}`;
+  let delete_1 = await db.run(result_3);
+  response.send("Movie removed");
+});
+//API 6
+app.get("/directors/", async (request, response) => {
+  let director = `
+      SELECT *
+      FROM director
+      ;`;
+  let directorfinal = await db.all(director);
+  response.send(directorfinal);
+});
+//API 7
+app.get("/directors/:directorId/movies/", async (request, response) => {
+  let { directorId } = request.params;
+  let moviedetalls = `
+  SELECT *
+  FROM director
+  
+  ;`;
+  let finall = await db.get(moviedetalls);
+  response.send(finall);
+});
