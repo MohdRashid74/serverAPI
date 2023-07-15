@@ -46,4 +46,13 @@ app.post("/movies/", async (request, response) => {
   let excute = await db.run(postmovie);
   response.send("Movie Successfully Added");
 });
-
+app.get("/movies/:movieId", async (request, response) => {
+  let { movieId } = request.params;
+  let getqueryunique = `
+  SELECT *
+  FROM movie
+  WHERE movie_id=${movieId}
+  `;
+  let final = await db.get(getqueryunique);
+  response.send(final);
+});
