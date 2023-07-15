@@ -20,3 +20,20 @@ let initalizationdbserver = async () => {
   }
 };
 initalizationdbserver();
+let finalresultfirst = (arrayresult) => {
+  return {
+    movie_Id: arrayresult.movie_Id,
+    director_Id: arrayresult.director_Id,
+    movie_name: arrayresult.movie_name,
+    lead_actor: arrayresult.lead_actor,
+  };
+};
+
+app.get("/movies/", async (request, response) => {
+  let getquery = `
+  SELECT *
+  FROM movie`;
+  let arrayresult = await db.all(getquery);
+  response.send(finalresultfirst(arrayresult));
+});
+
